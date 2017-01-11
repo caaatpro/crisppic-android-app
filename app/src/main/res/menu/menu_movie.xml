@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.crisppic.app.crisppic.MovieActivity">
+    <item
+        android:id="@+id/action_share"
+        android:orderInCategory="100"
+        android:title="Поделиться"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add"
+        android:orderInCategory="100"
+        android:title="Посмотрел"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add2"
+        android:orderInCategory="100"
+        android:title="Хочу"
+        app:showAsAction="never" />
+</menu>

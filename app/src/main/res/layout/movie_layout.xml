@@ -1,210 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="?attr/actionBarSize">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="212dp"
-        app:srcCompat="@drawable/poster"
-        android:id="@+id/imageView2" />
-
-    <TextView
-        android:text="Пассажиры"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:textAlignment="center"
-        android:textStyle="normal|bold" />
+        android:orientation="vertical">
 
-    <TextView
-        android:text="Passengers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:textStyle="normal|italic"
-        android:textAlignment="center" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="212dp"
+            app:srcCompat="@drawable/poster"
+            android:id="@+id/imageView2" />
 
-
-
-        <Button
-            android:text="Посмотрел"
-            android:layout_width="wrap_content"
+        <TextView
+            android:text="Пассажиры"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/b1"
-            android:layout_alignParentRight="true"/>
+            android:id="@+id/textView3"
+            android:textAlignment="center"
+            android:textStyle="normal|bold" />
 
-        <Button
-            android:text="Хочу"
-            android:layout_width="wrap_content"
+        <TextView
+            android:text="Passengers"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/b2"
-            android:layout_alignParentRight="true" />
+            android:id="@+id/textView4"
+            android:textStyle="normal|italic"
+            android:textAlignment="center" />
 
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <TableRow
+            <Button
+                android:text="Посмотрел"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/b1"
+                android:layout_alignParentRight="true"/>
+
+            <Button
+                android:text="Хочу"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/b2"
+                android:layout_alignParentRight="true" />
+
+
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
-            <TextView
-                android:text="год"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView6"
-                android:textStyle="normal|bold"
-                android:textColor="?android:attr/colorMultiSelectHighlight" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-            <TextView
-                android:text="2016"
+                <TextView
+                    android:text="год"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView6"
+                    android:textStyle="normal|bold"
+                    android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+                <TextView
+                    android:text="2016"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView7" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:text="страна"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal|bold"
+                    android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+                <TextView
+                    android:text="США"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:text="режиссер"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal|bold"
+                    android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+                <TextView
+                    android:text="Мортен Тильдум"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView7" />
-        </TableRow>
-        <TableRow
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:text="жанр"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal|bold"
+                    android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+                <TextView
+                    android:text="фантастика, драма, мелодрама, приключения"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:text="премьера (мир)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal|bold"
+                    android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+                <TextView
+                    android:text="14 декабря 2016"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:text="премьера (РФ)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal|bold"
+                    android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+                <TextView
+                    android:text="22 декабря 2016"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:text="время"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal|bold"
+                    android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+                <TextView
+                    android:text="116 мин. / 01:56"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:text="Просмотры"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:id="@+id/textView11"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+             android:layout_marginTop="5pt"/>
 
-            <TextView
-                android:text="страна"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="normal|bold"
-                android:textColor="?android:attr/colorMultiSelectHighlight" />
-
-            <TextView
-                android:text="США"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </TableRow>
-        <TableRow
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent">
 
-            <TextView
-                android:text="режиссер"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="normal|bold"
-                android:textColor="?android:attr/colorMultiSelectHighlight" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-            <TextView
-                android:text="Мортен Тильдум"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </TableRow>
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+                <TextView
+                    android:text="2 декабря 2016"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView9" />
+            </TableRow>
 
-            <TextView
-                android:text="жанр"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="normal|bold"
-                android:textColor="?android:attr/colorMultiSelectHighlight" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-            <TextView
-                android:text="фантастика, драма, мелодрама, приключения"
+                <TextView
+                    android:text="22 деккабря 2016"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView10" />
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
 
-            <TextView
-                android:text="премьера (мир)"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="normal|bold"
-                android:textColor="?android:attr/colorMultiSelectHighlight" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
 
-            <TextView
-                android:text="14 декабря 2016"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:text="премьера (РФ)"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="normal|bold"
-                android:textColor="?android:attr/colorMultiSelectHighlight" />
-
-            <TextView
-                android:text="22 декабря 2016"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:text="время"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="normal|bold"
-                android:textColor="?android:attr/colorMultiSelectHighlight" />
-
-            <TextView
-                android:text="116 мин. / 01:56"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </TableRow>
-
-    </TableLayout>
-
-    <TextView
-        android:text="Просмотры"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView11"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-         android:layout_marginTop="5pt"/>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:text="2 декабря 2016"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView9" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:text="22 деккабря 2016"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView10" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
