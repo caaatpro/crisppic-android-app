@@ -1,4 +1,4 @@
-package com.crisppic.app.crisppic;
+package com.crisppic.app.crisppic.view;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.crisppic.app.crisppic.R;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;

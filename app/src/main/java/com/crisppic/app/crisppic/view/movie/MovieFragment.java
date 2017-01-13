@@ -1,4 +1,4 @@
-package com.crisppic.app.crisppic;
+package com.crisppic.app.crisppic.view.movie;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.crisppic.app.crisppic.R;
 
 public class MovieFragment extends Fragment implements View.OnClickListener {
     View view;

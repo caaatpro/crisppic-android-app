@@ -1,4 +1,4 @@
-package com.crisppic.app.crisppic;
+package com.crisppic.app.crisppic.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.crisppic.app.crisppic.RestClient;
+import com.crisppic.app.crisppic.service.RestClientService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,8 +37,8 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
-            CrisppicApi loginService =
-                    ServiceGenerator.createService(CrisppicApi.class, basic);
+            RestClient loginService =
+                    RestClientService.createService(RestClient.class, basic);
             Call<Object> call = loginService.basicLogin();
             call.enqueue(new Callback<Object >() {
                              @Override

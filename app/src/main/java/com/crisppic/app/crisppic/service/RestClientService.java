@@ -1,4 +1,4 @@
-package com.crisppic.app.crisppic;
+package com.crisppic.app.crisppic.service;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ServiceGenerator {
+public class RestClientService {
 
     public static final String API_BASE_URL = "http://56feef81.ngrok.io/";
 

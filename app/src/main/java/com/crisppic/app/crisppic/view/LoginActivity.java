@@ -1,4 +1,4 @@
-package com.crisppic.app.crisppic;
+package com.crisppic.app.crisppic.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -17,11 +17,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.crisppic.app.crisppic.RestClient;
+import com.crisppic.app.crisppic.R;
+import com.crisppic.app.crisppic.service.RestClientService;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.crisppic.app.crisppic.SplashActivity.PREFS_NAME;
+import static com.crisppic.app.crisppic.view.SplashActivity.PREFS_NAME;
 
 /**
  * A login screen that offers login via email/password.
@@ -164,8 +168,8 @@ public class LoginActivity extends AppCompatActivity {
         final String basic =
                 "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
 
-        CrisppicApi loginService =
-                ServiceGenerator.createService(CrisppicApi.class, basic);
+        RestClient loginService =
+                RestClientService.createService(RestClient.class, basic);
         Call<Object> call = loginService.basicLogin();
         call.enqueue(new Callback<Object >() {
                          @Override

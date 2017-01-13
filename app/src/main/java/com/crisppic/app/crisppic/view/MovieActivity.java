@@ -1,4 +1,4 @@
-package com.crisppic.app.crisppic;
+package com.crisppic.app.crisppic.view;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -11,6 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.crisppic.app.crisppic.R;
+import com.crisppic.app.crisppic.view.movie.MovieFragment;
+import com.crisppic.app.crisppic.view.movie.MovieRecommendationsFragment;
+import com.crisppic.app.crisppic.view.movie.MovieReviewsFragment;
+import com.crisppic.app.crisppic.view.movie.MovieTrailersFragment;
+import com.crisppic.app.crisppic.view.movie.MovieViewsFragment;
 
 public class MovieActivity extends AppCompatActivity {
 
