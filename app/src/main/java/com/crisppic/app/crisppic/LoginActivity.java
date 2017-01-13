@@ -2,73 +2,46 @@ package com.crisppic.app.crisppic;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.Manifest.permission.READ_CONTACTS;
+import static com.crisppic.app.crisppic.SplashActivity.PREFS_NAME;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
-
-
-    private CrisppicApi service = CrisppicApi.retrofit.create(CrisppicApi.class);
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
-
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        Log.d("MyApp", PREFS_NAME);
+
         // Set up the login form.
         mEmailView = (EditText) findViewById(R.id.email);
 
@@ -84,6 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        context = getApplicationContext();
     }
 
 
@@ -93,10 +68,6 @@ public class LoginActivity extends AppCompatActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -134,14 +105,14 @@ public class LoginActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            userLogin(email, password);
         }
     }
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return true;
+//        return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
@@ -152,7 +123,6 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Shows the progress UI and hides the login form.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
@@ -189,77 +159,51 @@ public class LoginActivity extends AppCompatActivity {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public void userLogin(String email, String password) {
+        String credentials = email + ":" + password;
+        final String basic =
+                "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
 
-        private final String mEmail;
-        private final String mPassword;
+        CrisppicApi loginService =
+                ServiceGenerator.createService(CrisppicApi.class, basic);
+        Call<Object> call = loginService.basicLogin();
+        call.enqueue(new Callback<Object >() {
+                         @Override
+                         public void onResponse(Call<Object> call, Response<Object> response) {
+                             if (response.isSuccessful()) {
+                                 // Save
+                                 SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                                 SharedPreferences.Editor editor = settings.edit();
+                                 editor.putString("basic", basic);
+                                 editor.commit();
 
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
+                                 CharSequence text = "Успешная авторизация";
+                                 Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
 
-        @Override
-        protected Boolean doInBackground(Void... params) {
+                                 showProgress(false);
+                                 Intent intent = new Intent(context, MovieActivity.class);
+                                 startActivity(intent);
+                                 finish();
 
-            Call<List<Object>> call = service.result();
-            call.enqueue(new Callback<List<Object>>() {
-                @Override
-                public void onResponse(Call<List<Object>> call, Response<List<Object>> response) {
-                    if (response.isSuccessful()) {
-                        // tasks available
-                        System.out.print(response);
-                    } else {
-                        // error response, no access to resource?
-                        System.out.print("error");
-                    }
-                }
+                             } else {
+                                 // error response, no access to resource?
+                                 // 404 or NotAuth
+                                 showProgress(false);
+                                 mPasswordView.setError(getString(R.string.error_incorrect_password));
+                                 mPasswordView.requestFocus();
+                             }
+                         }
 
-                @Override
-                public void onFailure(Call<List<Object>> call, Throwable t) {
-                    // something went completely south (like no internet connection)
-                    Log.d("Error", t.getMessage());
-                }
-            });
-            // TODO: attempt authentication against a network service.
+                         @Override
+                         public void onFailure(Call<Object> call, Throwable t) {
+                             // something went completely south (like no internet connection)
+                             CharSequence text = t.getMessage();
+                             Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
+                             showProgress(false);
+                         }
+                     }
+        );
     }
 }
 
