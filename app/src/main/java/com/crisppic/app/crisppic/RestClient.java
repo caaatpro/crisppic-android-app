@@ -6,4 +6,7 @@ import retrofit2.http.GET;
 public interface RestClient {
     @GET("people")
     Call<Object> basicLogin();
+
+    @GET("profile")
+    Call<User> profile();
 }

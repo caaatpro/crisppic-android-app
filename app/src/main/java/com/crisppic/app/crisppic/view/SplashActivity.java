@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
                                      Log.d("Error", response.body().toString());
                                      Log.d("Error1", "0");
 
-                                     Intent intent = new Intent(context, MovieActivity.class);
+                                     Intent intent = new Intent(context, MainActivity.class);
                                      startActivity(intent);
                                      finish();
                                  } else {
