@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClientService {
 
-    public static final String API_BASE_URL = "http://6e4e8f0b.ngrok.io";
+    public static final String API_BASE_URL = "http://a0a1b78a.ngrok.io";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 

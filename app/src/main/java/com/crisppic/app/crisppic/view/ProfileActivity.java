@@ -15,17 +15,21 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.crisppic.app.crisppic.MovieAdapter;
 import com.crisppic.app.crisppic.R;
 import com.crisppic.app.crisppic.RestClient;
 import com.crisppic.app.crisppic.User;
+import com.crisppic.app.crisppic.UserMovies;
 import com.crisppic.app.crisppic.service.RestClientService;
 import com.crisppic.app.crisppic.view.profile.ProfileFragment;
 import com.crisppic.app.crisppic.view.profile.ProfileViewsFragment;
 import com.crisppic.app.crisppic.view.profile.ProfileWantsFragment;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +55,13 @@ public class ProfileActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     private Context context;
+
+    private SharedPreferences settings;
+    private String basic;
+    private RestClient loginService;
+
+    private ListView listView;
+    private MovieAdapter movieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +90,9 @@ public class ProfileActivity extends AppCompatActivity {
         context = getApplicationContext();
 
         // Restore preferences
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String basic = settings.getString("basic", null);
-        RestClient loginService =
+        settings = getSharedPreferences(PREFS_NAME, 0);
+        basic = settings.getString("basic", null);
+        loginService =
                 RestClientService.createService(RestClient.class, basic);
         Call<User> call = loginService.profile();
         call.enqueue(new Callback<User>() {
@@ -98,6 +109,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                                  TextView textView4 = (TextView) findViewById(R.id.textView4);
                                  textView4.setText(response.body().username);
+
+                                 setMovies();
                              } else {
                                  // error response, no access to resource?
                                  // 404 or NotAuth
@@ -115,8 +128,46 @@ public class ProfileActivity extends AppCompatActivity {
         );
     }
 
+    private void setMovies() {
+        Call<List<UserMovies>> call = loginService.profileMovies();
+        call.enqueue(new Callback<List<UserMovies>>() {
+                         @Override
+                         public void onResponse(Call<List<UserMovies>> call, Response<List<UserMovies>> response) {
+                             if (response.isSuccessful()) {
+                                 List<UserMovies> userMovies = response.body();
+                                 listView = (ListView) findViewById(R.id.ListView);
 
-        @Override
+                                 movieAdapter = new MovieAdapter(getApplicationContext(), R.layout.movie_row);
+                                 listView.setAdapter(movieAdapter);
+
+
+                                 for (int i = 0; i < userMovies.size(); i++) {
+                                     Log.d("Profile", String.valueOf(userMovies.get(i).sID));
+                                     Log.d("Profile", String.valueOf(userMovies.get(i).year));
+                                     Log.d("Profile", String.valueOf(userMovies.get(i).type));
+                                     movieAdapter.add();
+                                 }
+
+                             } else {
+                                 // error response, no access to resource?
+                                 // 404 or NotAuth
+                                 Intent intent = new Intent(context, LoginActivity.class);
+                                 startActivity(intent);
+                                 finish();
+                             }
+                         }
+
+                         @Override
+                         public void onFailure(Call<List<UserMovies>> call, Throwable t) {
+
+                         }
+                     }
+        );
+        TextView textView4 = (TextView) findViewById(R.id.textView4);
+        textView4.setText("2342");
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //noinspection SimplifiableIfStatement
         switch (item.getItemId()) {
