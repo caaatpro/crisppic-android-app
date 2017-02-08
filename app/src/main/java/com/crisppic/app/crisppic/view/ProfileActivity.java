@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,10 +16,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.crisppic.app.crisppic.MovieAdapter;
+import com.crisppic.app.crisppic.CustomAdapter;
+import com.crisppic.app.crisppic.DataModel;
 import com.crisppic.app.crisppic.R;
 import com.crisppic.app.crisppic.RestClient;
 import com.crisppic.app.crisppic.User;
@@ -28,8 +32,8 @@ import com.crisppic.app.crisppic.view.profile.ProfileFragment;
 import com.crisppic.app.crisppic.view.profile.ProfileViewsFragment;
 import com.crisppic.app.crisppic.view.profile.ProfileWantsFragment;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,8 +64,8 @@ public class ProfileActivity extends AppCompatActivity {
     private String basic;
     private RestClient loginService;
 
-    private ListView listView;
-    private MovieAdapter movieAdapter;
+
+    ArrayList<DataModel> dataModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,18 +139,41 @@ public class ProfileActivity extends AppCompatActivity {
                          public void onResponse(Call<List<UserMovies>> call, Response<List<UserMovies>> response) {
                              if (response.isSuccessful()) {
                                  List<UserMovies> userMovies = response.body();
-                                 listView = (ListView) findViewById(R.id.ListView);
 
-                                 movieAdapter = new MovieAdapter(getApplicationContext(), R.layout.movie_row);
-                                 listView.setAdapter(movieAdapter);
+                                 ListView listView=(ListView)findViewById(R.id.ListView);
 
+                                 dataModels= new ArrayList<>();
 
                                  for (int i = 0; i < userMovies.size(); i++) {
-                                     Log.d("Profile", String.valueOf(userMovies.get(i).sID));
-                                     Log.d("Profile", String.valueOf(userMovies.get(i).year));
-                                     Log.d("Profile", String.valueOf(userMovies.get(i).type));
-                                     movieAdapter.add();
+                                     dataModels.add(new DataModel(String.valueOf(userMovies.get(i).sID), String.valueOf(userMovies.get(i).year), String.valueOf(userMovies.get(i).type)));
                                  }
+
+                                 dataModels.add(new DataModel("Banana Bread", "Android 1.1","February 9, 2009"));
+                                 dataModels.add(new DataModel("Cupcake", "Android 1.5", "April 27, 2009"));
+                                 dataModels.add(new DataModel("Donut","Android 1.6","September 15, 2009"));
+                                 dataModels.add(new DataModel("Eclair", "Android 2.0", "October 26, 2009"));
+                                 dataModels.add(new DataModel("Froyo", "Android 2.2", "May 20, 2010"));
+                                 dataModels.add(new DataModel("Gingerbread", "Android 2.3", "December 6, 2010"));
+                                 dataModels.add(new DataModel("Honeycomb","Android 3.0","February 22, 2011"));
+                                 dataModels.add(new DataModel("Ice Cream Sandwich", "Android 4.0", "October 18, 2011"));
+                                 dataModels.add(new DataModel("Jelly Bean", "Android 4.2", "July 9, 2012"));
+                                 dataModels.add(new DataModel("Kitkat", "Android 4.4", "October 31, 2013"));
+                                 dataModels.add(new DataModel("Lollipop","Android 5.0", "November 12, 2014"));
+                                 dataModels.add(new DataModel("Marshmallow", "Android 6.0", "October 5, 2015"));
+
+                                 CustomAdapter adapter= new CustomAdapter(dataModels,getApplicationContext());
+
+                                 listView.setAdapter(adapter);
+                                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                     @Override
+                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                         DataModel dataModel= dataModels.get(position);
+
+                                         Snackbar.make(view, dataModel.getName()+"\n"+dataModel.getType(), Snackbar.LENGTH_LONG)
+                                                 .setAction("No action", null).show();
+                                     }
+                                 });
 
                              } else {
                                  // error response, no access to resource?

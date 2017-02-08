@@ -11,19 +11,19 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnClickListener{
+public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnClickListener{
 
     Context mContext;
 
     // View lookup cache
     private static class ViewHolder {
-        TextView title;
+        TextView txtName;
         TextView txtType;
         ImageView info;
     }
 
-    public MovieAdapter(ArrayList<MovieModel> data, Context context) {
-        super(context, R.layout.movie_item, data);
+    public CustomAdapter(ArrayList<DataModel> data, Context context) {
+        super(context, R.layout.row_item, data);
         this.mContext = context;
 
     }
@@ -46,15 +46,15 @@ public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnCli
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        MovieModel dataModel = getItem(position);
+        DataModel dataModel = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.movie_item, parent, false);
-            viewHolder.title = (TextView) convertView.findViewById(R.id.title);
+            convertView = inflater.inflate(R.layout.row_item, parent, false);
+            viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
             viewHolder.txtType = (TextView) convertView.findViewById(R.id.type);
             viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
 
@@ -62,8 +62,8 @@ public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnCli
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        
-        viewHolder.title.setText(dataModel.getTitle());
+
+        viewHolder.txtName.setText(dataModel.getName());
         viewHolder.txtType.setText(dataModel.getType());
         viewHolder.info.setOnClickListener(this);
         viewHolder.info.setTag(position);
