@@ -1,5 +1,7 @@
 package com.crisppic.app.crisppic.service;
 
+import com.crisppic.app.crisppic.App;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -21,18 +23,14 @@ public class RestClientService {
                     .addConverterFactory(GsonConverterFactory.create());
 
     public static <S> S createService(Class<S> serviceClass) {
-        return createService(serviceClass, null);
-    }
-
-    public static <S> S createService(Class<S> serviceClass, final String basic) {
-        if (basic != null) {
+        if (App.basic != null) {
             httpClient.addInterceptor(new Interceptor() {
                 @Override
                 public Response intercept(Interceptor.Chain chain) throws IOException {
                     Request original = chain.request();
 
                     Request.Builder requestBuilder = original.newBuilder()
-                            .header("Authorization", basic)
+                            .header("Authorization", App.basic)
                             .header("Accept", "application/json")
                             .method(original.method(), original.body());
 

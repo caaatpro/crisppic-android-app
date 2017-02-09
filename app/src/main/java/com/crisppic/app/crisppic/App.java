@@ -20,7 +20,7 @@ public class App  extends Application {
         settings = this.getSharedPreferences(PREFS_NAME, 0);
         basic = settings.getString("basic", null);
 
-        loginService = RestClientService.createService(RestClient.class, App.basic);
+        loginService = RestClientService.createService(RestClient.class);
     }
 
     public static RestClient getApi() {
