@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.crisppic.app.crisppic.App;
 import com.crisppic.app.crisppic.CustomAdapter;
 import com.crisppic.app.crisppic.DataModel;
 import com.crisppic.app.crisppic.R;
@@ -61,7 +62,6 @@ public class ProfileActivity extends AppCompatActivity {
     private Context context;
 
     private SharedPreferences settings;
-    private String basic;
     private RestClient loginService;
 
 
@@ -93,13 +93,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         context = getApplicationContext();
 
-        // Restore preferences
-        settings = getSharedPreferences(PREFS_NAME, 0);
-        basic = settings.getString("basic", null);
-        loginService =
-                RestClientService.createService(RestClient.class, basic);
-        Call<User> call = loginService.profile();
-        call.enqueue(new Callback<User>() {
+        App.getApi().profile().enqueue(new Callback<User>() {
                          @Override
                          public void onResponse(Call<User> call, Response<User> response) {
                              if (response.isSuccessful()) {

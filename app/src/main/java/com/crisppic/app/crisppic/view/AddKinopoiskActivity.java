@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.crisppic.app.crisppic.App;
 import com.crisppic.app.crisppic.MovieAdapter;
 import com.crisppic.app.crisppic.MovieKinopoisk;
 import com.crisppic.app.crisppic.MovieModel;
@@ -38,10 +39,6 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
 
     private Context context;
 
-    private RestClient loginService;
-
-    private SharedPreferences settings;
-    private String basic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +56,6 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
 
         MovieIdView = (EditText) findViewById(R.id.movieId);
 
-        settings = this.getSharedPreferences(PREFS_NAME, 0);
-        basic = settings.getString("basic", null);
-        loginService =
-                RestClientService.createService(RestClient.class, basic);
     }
 
     @Override
@@ -80,31 +73,30 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
                     toastText = "Добавляю в базу!";
                     Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
 
-                    Call<MovieKinopoisk> call = loginService.addKinopoisk(id);
-                    call.enqueue(new Callback<MovieKinopoisk>() {
-                                     @Override
-                                     public void onResponse(Call<MovieKinopoisk> call, Response<MovieKinopoisk> response) {
-                                         Log.d("Profile", "onResponse");
-                                         if (response.isSuccessful()) {
-                                             MovieKinopoisk movie = response.body();
-                                             Log.d("Profile", String.valueOf(movie.titles));
+                    App.getApi().addKinopoisk(id).enqueue(new Callback<MovieKinopoisk>() {
+                             @Override
+                             public void onResponse(Call<MovieKinopoisk> call, Response<MovieKinopoisk> response) {
+                                 Log.d("Profile", "onResponse");
+                                 if (response.isSuccessful()) {
+                                     MovieKinopoisk movie = response.body();
+                                     Log.d("Profile", String.valueOf(movie.titles));
 
 
-                                             toastText = "Фильм добавлен в базу ˆˆ";
-                                             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
-                                         } else {
-                                             // error response, no access to resource?
-                                             // 404 or NotAuth
-                                             Intent intent = new Intent(context, LoginActivity.class);
-                                             startActivity(intent);
-                                         }
-                                     }
-
-                                     @Override
-                                     public void onFailure(Call<MovieKinopoisk> call, Throwable t) {
-                                         Log.d("Profile", String.valueOf(t));
-                                     }
+                                     toastText = "Фильм добавлен в базу ˆˆ";
+                                     Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+                                 } else {
+                                     // error response, no access to resource?
+                                     // 404 or NotAuth
+                                     Intent intent = new Intent(context, LoginActivity.class);
+                                     startActivity(intent);
                                  }
+                             }
+
+                             @Override
+                             public void onFailure(Call<MovieKinopoisk> call, Throwable t) {
+                                 Log.d("Profile", String.valueOf(t));
+                            }
+                        }
                     );
                 }
                 break;

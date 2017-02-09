@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.crisppic.app.crisppic.App;
 import com.crisppic.app.crisppic.RestClient;
 import com.crisppic.app.crisppic.R;
 import com.crisppic.app.crisppic.service.RestClientService;
@@ -165,20 +166,17 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void userLogin(String email, String password) {
         String credentials = email + ":" + password;
-        final String basic =
-                "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
 
-        RestClient loginService =
-                RestClientService.createService(RestClient.class, basic);
-        Call<Object> call = loginService.basicLogin();
-        call.enqueue(new Callback<Object >() {
+        App.basic = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+
+        App.getApi().basicLogin().enqueue(new Callback<Object >() {
                          @Override
                          public void onResponse(Call<Object> call, Response<Object> response) {
                              if (response.isSuccessful()) {
                                  // Save
                                  SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
                                  SharedPreferences.Editor editor = settings.edit();
-                                 editor.putString("basic", basic);
+                                 editor.putString("basic", App.basic);
                                  editor.commit();
 
                                  CharSequence text = "Успешная авторизация";

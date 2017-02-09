@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.crisppic.app.crisppic.App;
 import com.crisppic.app.crisppic.MovieAdapter;
 import com.crisppic.app.crisppic.MovieModel;
 import com.crisppic.app.crisppic.Movies;
@@ -36,8 +37,6 @@ public class MainFragment extends Fragment {
 
     private ArrayList<MovieModel> movieModel;
 
-    private SharedPreferences settings;
-    private String basic;
     private Context context;
 
     @Override
@@ -45,17 +44,10 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         context = container.getContext();
 
-        // Restore preferences
-
-        settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
-        basic = settings.getString("basic", null);
-        loginService =
-                RestClientService.createService(RestClient.class, basic);
 
         view = inflater.inflate(R.layout.main_layout, container, false);
 
-        Call<List<Movies>> call = loginService.movies();
-        call.enqueue(new Callback<List<Movies>>() {
+        App.getApi().movies().enqueue(new Callback<List<Movies>>() {
                          @Override
                          public void onResponse(Call<List<Movies>> call, Response<List<Movies>> response) {
                              Log.d("Profile", "onResponse");

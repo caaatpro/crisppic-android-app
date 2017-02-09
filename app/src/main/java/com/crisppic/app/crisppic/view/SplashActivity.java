@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.crisppic.app.crisppic.App;
 import com.crisppic.app.crisppic.RestClient;
 import com.crisppic.app.crisppic.service.RestClientService;
 
@@ -27,20 +28,14 @@ public class SplashActivity extends AppCompatActivity {
         context = getApplicationContext();
 
         // Restore preferences
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String basic = settings.getString("basic", null);
+        Toast.makeText(context, App.basic, Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(context, basic, Toast.LENGTH_SHORT).show();
-
-        if (basic == null) {
+        if (App.basic == null) {
             Intent intent = new Intent(context, LoginActivity.class);
             startActivity(intent);
             finish();
         } else {
-            RestClient loginService =
-                    RestClientService.createService(RestClient.class, basic);
-            Call<Object> call = loginService.basicLogin();
-            call.enqueue(new Callback<Object >() {
+            App.getApi().basicLogin().enqueue(new Callback<Object >() {
                              @Override
                              public void onResponse(Call<Object> call, Response<Object> response) {
                                  if (response.isSuccessful()) {
