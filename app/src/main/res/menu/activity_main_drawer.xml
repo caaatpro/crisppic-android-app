@@ -11,6 +11,10 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Посмотренные" />
         <item
+            android:id="@+id/add_kinopoisk"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Добавить из кинопоиска" />
+        <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Хочу посмотреть" />

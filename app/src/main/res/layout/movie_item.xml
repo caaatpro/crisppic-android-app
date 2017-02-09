@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:layout_marginTop="5dp"
-        android:text="что-то ещё"
+        android:text="movie"
         android:textColor="@android:color/black" />
 
     <ImageView

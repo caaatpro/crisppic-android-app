@@ -1,8 +1,5 @@
 package com.crisppic.app.crisppic;
 
-import java.util.Date;
-
-
 public class User {
     public String username;
     public String _id;

@@ -22,7 +22,6 @@ import com.crisppic.app.crisppic.service.RestClientService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,8 +72,17 @@ public class MainFragment extends Fragment {
 //                                         Log.d("Profile", String.valueOf(movies.get(i).rating.get(j).name));
 //                                         Log.d("Profile", String.valueOf(movies.get(i).rating.get(j).value));
 //                                     }
-                                     Log.d("Profile", String.valueOf(movies.get(i).myMap.size()));
-                                     movieModel.add(new MovieModel(movies.get(i).type, null));
+                                     Log.d("Profile", String.valueOf(movies.get(i).titles));
+
+                                     String title = movies.get(i).titles.russian;
+                                     if (movies.get(i).titles.original != "") {
+                                         title += " (" + movies.get(i).titles.original + ") ";
+
+                                     }
+                                     title += movies.get(i).year;
+
+
+                                     movieModel.add(new MovieModel(title, movies.get(i).type));
                                  }
 
                                  MovieAdapter adapter = new MovieAdapter(movieModel,context);

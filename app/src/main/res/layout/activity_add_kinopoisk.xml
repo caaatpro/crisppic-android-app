@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_kinopoisk"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.crisppic.app.crisppic.view.AddKinopoiskActivity">
+
+    <TextView
+        android:text="ID на Кинопоиск"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/movieIdLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number|numberSigned"
+        android:ems="10"
+        android:id="@+id/movieId"
+        android:layout_below="@+id/movieIdLabel"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Добавить в базу"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add"
+        android:layout_below="@+id/movieId"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="В просмотренные"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/watched"
+        android:layout_below="@+id/add"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="В хочу"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/want"
+        android:layout_below="@+id/watched"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:text="Жанр:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView13"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Страна:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Режисёр:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/textView14"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Русское название:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/textView8"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView17"
+        android:textAlignment="viewStart"
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_toEndOf="@+id/textView5"
+        android:text="Русское название" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView15"
+        android:textAlignment="viewStart"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/textView8"
+        android:text="Оригинальное назвагние" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView18"
+        android:textAlignment="viewStart"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"
+        android:text="Год" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView19"
+        android:textAlignment="viewStart"
+        android:layout_below="@+id/textView2"
+        android:layout_toEndOf="@+id/textView13"
+        android:text="Жанр" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView20"
+        android:textAlignment="viewStart"
+        android:layout_below="@+id/textView19"
+        android:layout_toEndOf="@+id/textView14"
+        android:text="Страна" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:textAlignment="viewStart"
+        android:layout_below="@+id/textView20"
+        android:layout_toEndOf="@+id/textView12"
+        android:text="Режисёр" />
+
+    <TextView
+        android:text="Оригинальное назвагние:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:layout_alignBaseline="@+id/textView15"
+        android:layout_alignBottom="@+id/textView15"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Год:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

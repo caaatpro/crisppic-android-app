@@ -1,10 +1,10 @@
 package com.crisppic.app.crisppic;
 
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface RestClient {
     @GET("login")
@@ -18,4 +18,7 @@ public interface RestClient {
 
     @GET("movies")
     Call<List<Movies>> movies();
+
+    @GET("movie/kinopoisk/{id}")
+    Call<MovieKinopoisk> addKinopoisk(@Path("id") String id);
 }

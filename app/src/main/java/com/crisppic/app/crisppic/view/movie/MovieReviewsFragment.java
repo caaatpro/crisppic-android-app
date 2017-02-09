@@ -5,14 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.crisppic.app.crisppic.R;
 
-public class MovieReviewsFragment extends Fragment implements View.OnClickListener {
+public class MovieReviewsFragment extends Fragment {
     View view;
-    Button b1,
-           b2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -23,12 +20,4 @@ public class MovieReviewsFragment extends Fragment implements View.OnClickListen
 
         return view;
     }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-        }
-    }
-
-
 }

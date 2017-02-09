@@ -1,8 +1,5 @@
 package com.crisppic.app.crisppic;
 
-/**
- * Created by anupamchugh on 09/02/16.
- */
 public class DataModel {
 
     String name;
