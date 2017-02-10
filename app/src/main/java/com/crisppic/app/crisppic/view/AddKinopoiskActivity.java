@@ -123,37 +123,15 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
                                     System.out.println(ex);
                                 }
 
-                                App.getApi().userAddMovieKinopoisk(id, date).enqueue(new Callback<Object>() {
-                                      @Override
-                                      public void onResponse(Call<Object> call, Response<Object> response) {
-                                          Log.d("Profile", "onResponse");
-                                          if (response.isSuccessful()) {
-                                              Object req = response.body();
-                                              Log.d("Profile", String.valueOf(req));
-
-
-                                              toastText = "Фильм добавлен в базу ˆˆ";
-                                              Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
-                                          } else {
-                                              // error response, no access to resource?
-                                              // 404 or NotAuth
-                                              Intent intent = new Intent(context, LoginActivity.class);
-                                              startActivity(intent);
-                                          }
-                                      }
-
-                                      @Override
-                                      public void onFailure(Call<Object> call, Throwable t) {
-                                          Log.d("Profile", String.valueOf(t));
-                                      }
-                                    }
-                                );
+                                addMovie(id, date);
                             }
                         }, mYear, mMonth, mDay);
+
                 datePickerDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Без даты", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Your code
+                        addMovie(id, null);
                     }
                 });
                 datePickerDialog.show();
@@ -164,5 +142,33 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
                 Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    private void addMovie(String id, Date date) {
+        App.getApi().userAddMovieKinopoisk(id, date).enqueue(new Callback<Object>() {
+                 @Override
+                 public void onResponse(Call<Object> call, Response<Object> response) {
+                     Log.d("Profile", "onResponse");
+                     if (response.isSuccessful()) {
+                         Object req = response.body();
+                         Log.d("Profile", String.valueOf(req));
+
+
+                         toastText = "Фильм добавлен в базу ˆˆ";
+                         Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+                     } else {
+                         // error response, no access to resource?
+                         // 404 or NotAuth
+                         Intent intent = new Intent(context, LoginActivity.class);
+                         startActivity(intent);
+                     }
+                 }
+
+                 @Override
+                 public void onFailure(Call<Object> call, Throwable t) {
+                     Log.d("Profile", String.valueOf(t));
+                 }
+             }
+        );
     }
 }
