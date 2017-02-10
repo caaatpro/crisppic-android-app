@@ -2,36 +2,22 @@ package com.crisppic.app.crisppic.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.crisppic.app.crisppic.App;
-import com.crisppic.app.crisppic.MovieAdapter;
 import com.crisppic.app.crisppic.MovieKinopoisk;
-import com.crisppic.app.crisppic.MovieModel;
-import com.crisppic.app.crisppic.Movies;
 import com.crisppic.app.crisppic.R;
-import com.crisppic.app.crisppic.RestClient;
-import com.crisppic.app.crisppic.service.RestClientService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.crisppic.app.crisppic.view.SplashActivity.PREFS_NAME;
 
 public class AddKinopoiskActivity extends AppCompatActivity implements View.OnClickListener {
     private CharSequence toastText;

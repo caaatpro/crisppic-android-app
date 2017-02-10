@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
-            App.getApi().basicLogin().enqueue(new Callback<Object >() {
+            App.getApi().basicLogin(App.basic).enqueue(new Callback<Object >() {
                              @Override
                              public void onResponse(Call<Object> call, Response<Object> response) {
                                  if (response.isSuccessful()) {

@@ -16,24 +16,7 @@
             android:layout_height="212dp"
             app:srcCompat="@drawable/poster"
             android:id="@+id/imageView2" />
-
-        <TextView
-            android:text="Пассажиры"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView3"
-            android:textAlignment="center"
-            android:textStyle="normal|bold" />
-
-        <TextView
-            android:text="Passengers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView4"
-            android:textStyle="normal|italic"
-            android:textAlignment="center" />
-
-
+        
 
             <Button
                 android:text="Посмотрел"

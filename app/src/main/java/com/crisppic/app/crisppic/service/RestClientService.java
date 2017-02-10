@@ -1,5 +1,7 @@
 package com.crisppic.app.crisppic.service;
 
+import android.util.Log;
+
 import com.crisppic.app.crisppic.App;
 
 import java.io.IOException;
@@ -13,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClientService {
 
-    public static final String API_BASE_URL = "http://9fdb47ab.ngrok.io";
+    public static final String API_BASE_URL = "http://95a71a65.ngrok.io";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -23,6 +25,7 @@ public class RestClientService {
                     .addConverterFactory(GsonConverterFactory.create());
 
     public static <S> S createService(Class<S> serviceClass) {
+        Log.d("createService", String.valueOf(App.basic));
         if (App.basic != null) {
             httpClient.addInterceptor(new Interceptor() {
                 @Override

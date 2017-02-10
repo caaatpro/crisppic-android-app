@@ -4,11 +4,13 @@ public class MovieModel {
 
     String title;
     String type;
+    Integer sID;
 
 
-    public MovieModel(String title, String type ) {
+    public MovieModel(String title, String type, Integer sID) {
         this.title = title;
         this.type = type;
+        this.sID = sID;
     }
 
 
@@ -21,5 +23,7 @@ public class MovieModel {
         return type;
     }
 
-
+    public Integer getsID() {
+        return sID;
+    }
 }

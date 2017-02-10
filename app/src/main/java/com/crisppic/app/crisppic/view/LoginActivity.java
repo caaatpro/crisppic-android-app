@@ -167,11 +167,10 @@ public class LoginActivity extends AppCompatActivity {
     public void userLogin(String email, String password) {
         String credentials = email + ":" + password;
 
-        Log.d("Login", App.basic);
-        App.basic = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-        Log.d("Login", App.basic);
+        App.setBasic("Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP));
 
-        App.getApi().basicLogin().enqueue(new Callback<Object >() {
+
+        App.getApi().basicLogin(App.basic).enqueue(new Callback<Object >() {
                          @Override
                          public void onResponse(Call<Object> call, Response<Object> response) {
                              if (response.isSuccessful()) {

@@ -1,5 +1,7 @@
 package com.crisppic.app.crisppic.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,15 +11,24 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.crisppic.app.crisppic.App;
+import com.crisppic.app.crisppic.Movie;
 import com.crisppic.app.crisppic.R;
 import com.crisppic.app.crisppic.view.movie.MovieFragment;
 import com.crisppic.app.crisppic.view.movie.MovieRecommendationsFragment;
 import com.crisppic.app.crisppic.view.movie.MovieReviewsFragment;
 import com.crisppic.app.crisppic.view.movie.MovieTrailersFragment;
 import com.crisppic.app.crisppic.view.movie.MovieViewsFragment;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MovieActivity extends AppCompatActivity {
 
@@ -36,19 +47,21 @@ public class MovieActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
+        context = getApplicationContext();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Пассажиры");
-        actionBar.setSubtitle("Passengers");
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -60,6 +73,41 @@ public class MovieActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        Intent intent = getIntent();
+        final Integer sID = intent.getIntExtra("sID", 0);
+
+        if (sID == 0) {
+            // возвращаемся и выводим ошибку
+        }
+
+        App.getApi().movie(sID).enqueue(new Callback<Movie>() {
+                                          @Override
+                                          public void onResponse(Call<Movie> call, Response<Movie> response) {
+                                              if (response.isSuccessful()) {
+                                                  Movie movie = response.body();
+
+//                                                  Log.d("Movie", )
+
+                                                  actionBar.setTitle(movie.titles.russian);
+                                                  actionBar.setSubtitle(movie.titles.original);
+
+                                              } else {
+                                                  // error response, no access to resource?
+                                                  // 404 or NotAuth
+                                                  Intent intent = new Intent(context, LoginActivity.class);
+                                                  startActivity(intent);
+                                              }
+                                          }
+
+                                          @Override
+                                          public void onFailure(Call<Movie> call, Throwable t) {
+                                              Log.d("Profile", String.valueOf(t));
+                                          }
+                                      }
+        );
+
+
     }
 
 

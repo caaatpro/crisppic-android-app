@@ -2,6 +2,7 @@ package com.crisppic.app.crisppic;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,16 +32,18 @@ public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnCli
     @Override
     public void onClick(View v) {
         int position = (Integer) v.getTag();
-        Object object = getItem(position);
-        DataModel dataModel = (DataModel) object;
 
-        switch (v.getId()) {
-            case R.id.item_info:
-                Snackbar.make(v, "Release date " +dataModel.getFeature(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-
-                break;
-        }
+        Log.d("MovieAdapter", String.valueOf(position));
+//        Object object = getItem(position);
+//        MovieModel dataModel = (MovieModel) object;
+//
+//        switch (v.getId()) {
+//            case R.id.item_info:
+//                Snackbar.make(v, "Release date2 " +dataModel.getType(), Snackbar.LENGTH_LONG)
+//                        .setAction("No action", null).show();
+//
+//                break;
+//        }
     }
 
     @Override

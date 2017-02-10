@@ -2,9 +2,7 @@ package com.crisppic.app.crisppic.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +14,8 @@ import android.widget.ListView;
 import com.crisppic.app.crisppic.App;
 import com.crisppic.app.crisppic.MovieAdapter;
 import com.crisppic.app.crisppic.MovieModel;
-import com.crisppic.app.crisppic.Movies;
+import com.crisppic.app.crisppic.Movie;
 import com.crisppic.app.crisppic.R;
-import com.crisppic.app.crisppic.RestClient;
-import com.crisppic.app.crisppic.service.RestClientService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +24,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.crisppic.app.crisppic.view.SplashActivity.PREFS_NAME;
 
 public class MainFragment extends Fragment {
     View view;
-
-    private RestClient loginService;
 
     private ArrayList<MovieModel> movieModel;
 
@@ -47,23 +40,18 @@ public class MainFragment extends Fragment {
 
         view = inflater.inflate(R.layout.main_layout, container, false);
 
-        App.getApi().movies().enqueue(new Callback<List<Movies>>() {
+        App.getApi().movies().enqueue(new Callback<List<Movie>>() {
                          @Override
-                         public void onResponse(Call<List<Movies>> call, Response<List<Movies>> response) {
+                         public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
                              Log.d("Profile", "onResponse");
                              if (response.isSuccessful()) {
-                                 List<Movies> movies = response.body();
+                                 List<Movie> movies = response.body();
 
                                  ListView listView = (ListView) view.findViewById(R.id.ListView2);
 
                                  movieModel = new ArrayList<>();
 
                                  for (int i = 0; i < movies.size(); i++) {
-//                                     for (int j = 0; j < movies.get(i).rating.size(); j++) {
-//                                         Log.d("Profile", String.valueOf(j));
-//                                         Log.d("Profile", String.valueOf(movies.get(i).rating.get(j).name));
-//                                         Log.d("Profile", String.valueOf(movies.get(i).rating.get(j).value));
-//                                     }
                                      Log.d("Profile", String.valueOf(movies.get(i).titles));
 
                                      String title = movies.get(i).titles.russian;
@@ -73,8 +61,8 @@ public class MainFragment extends Fragment {
                                      }
                                      title += movies.get(i).year;
 
+                                     movieModel.add(new MovieModel(title, movies.get(i).type, movies.get(i).sID));
 
-                                     movieModel.add(new MovieModel(title, movies.get(i).type));
                                  }
 
                                  MovieAdapter adapter = new MovieAdapter(movieModel,context);
@@ -83,11 +71,13 @@ public class MainFragment extends Fragment {
                                  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                      @Override
                                      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                         MovieModel movie = movieModel.get(position);
 
-                                         MovieModel dataModel = movieModel.get(position);
+                                        Intent intent = new Intent(context, MovieActivity.class);
+                                        intent.putExtra("sID", movie.getsID());
 
-                                         Snackbar.make(view, dataModel.getTitle()+"\n"+dataModel.getType(), Snackbar.LENGTH_LONG)
-                                                 .setAction("No action", null).show();
+                                        Log.d("Profile", String.valueOf(movie.getsID()));
+                                        startActivity(intent);
                                      }
                                  });
 
@@ -100,7 +90,7 @@ public class MainFragment extends Fragment {
                          }
 
                          @Override
-                         public void onFailure(Call<List<Movies>> call, Throwable t) {
+                         public void onFailure(Call<List<Movie>> call, Throwable t) {
                              Log.d("Profile", String.valueOf(t));
                          }
                      }

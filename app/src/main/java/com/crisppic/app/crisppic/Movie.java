@@ -3,7 +3,7 @@ package com.crisppic.app.crisppic;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Movies {
+public class Movie {
     public Integer sID;
     public Integer runtime;
     public Integer year;
