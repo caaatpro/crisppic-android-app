@@ -6,11 +6,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".App"
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.SplashActivity"
@@ -40,7 +40,11 @@
         <activity
             android:name=".view.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".view.AddKinopoiskActivity"></activity>
+        <activity android:name=".view.AddKinopoiskActivity" />
+        <activity
+            android:name=".view.AboutActivity"
+            android:label="О Crisppic"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

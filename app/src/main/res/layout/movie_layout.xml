@@ -16,7 +16,7 @@
             android:layout_height="212dp"
             app:srcCompat="@drawable/poster"
             android:id="@+id/imageView2" />
-        
+
 
             <Button
                 android:text="Посмотрел"

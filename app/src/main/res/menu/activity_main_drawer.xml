@@ -7,13 +7,13 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Поиск" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Посмотренные" />
-        <item
             android:id="@+id/add_kinopoisk"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Добавить из кинопоиска" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Посмотренные" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
@@ -22,38 +22,14 @@
             android:id="@+id/settings"
             android:icon="@drawable/ic_menu_manage"
             android:title="Настройки" />
-        <item
-            android:id="@+id/nav_manage2"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Авторизация" />
-        <item
-            android:id="@+id/nav_manage3"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Регистрация" />
-        <item
-            android:id="@+id/nav_manage4"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Фильмы" />
-        <item
-            android:id="@+id/nav_manage5"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Фильм" />
-        <item
-            android:id="@+id/nav_manage6"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Люди фильма" />
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/about"
                 android:icon="@drawable/ic_menu_send"
-                android:title="О нас" />
-            <item
-                android:id="@+id/nav_send2"
-                android:icon="@drawable/ic_menu_send"
-                android:title="О нас" />
+                android:title="О Crisppic" />
         </menu>
     </item>
 

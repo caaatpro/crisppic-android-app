@@ -114,13 +114,14 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
             Intent intent = new Intent(this, MovieActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_send) {
-
         } else if (id == R.id.settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.add_kinopoisk) {
             Intent intent = new Intent(this, AddKinopoiskActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.about) {
+            Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
         }
 
