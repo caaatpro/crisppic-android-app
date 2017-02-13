@@ -180,7 +180,7 @@ public class ProfileWantsFragment extends Fragment {
                 return true;
             case R.id.remove:
                 App.getApi()
-                        .userDelViews(movie.getsID())
+                        .userDelWants(movie.getsID())
                         .enqueue(new Callback<Object>() {
                                      @Override
                                      public void onResponse(Call<Object> call, Response<Object> response) {
