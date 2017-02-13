@@ -24,8 +24,6 @@ import com.crisppic.app.crisppic.view.movie.MovieReviewsFragment;
 import com.crisppic.app.crisppic.view.movie.MovieTrailersFragment;
 import com.crisppic.app.crisppic.view.movie.MovieViewsFragment;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -86,8 +84,6 @@ public class MovieActivity extends AppCompatActivity {
                                           public void onResponse(Call<Movie> call, Response<Movie> response) {
                                               if (response.isSuccessful()) {
                                                   Movie movie = response.body();
-
-//                                                  Log.d("Movie", )
 
                                                   actionBar.setTitle(movie.titles.russian);
                                                   actionBar.setSubtitle(movie.titles.original);

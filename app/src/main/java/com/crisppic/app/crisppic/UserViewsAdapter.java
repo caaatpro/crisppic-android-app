@@ -1,6 +1,7 @@
 package com.crisppic.app.crisppic;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnClickListener{
+public class UserViewsAdapter extends ArrayAdapter<UserMovieModel> implements View.OnClickListener{
 
     Context mContext;
 
@@ -21,7 +22,7 @@ public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnCli
         ImageView info;
     }
 
-    public MovieAdapter(ArrayList<MovieModel> data, Context context) {
+    public UserViewsAdapter(ArrayList<UserMovieModel> data, Context context) {
         super(context, R.layout.movie_item, data);
         this.mContext = context;
 
@@ -30,9 +31,13 @@ public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnCli
     @Override
     public void onClick(View v) {
         int position = (Integer) v.getTag();
-//        Object object = getItem(position);
-//        MovieModel dataModel = (MovieModel) object;
-//
+
+
+        Object object = getItem(position);
+        UserMovieModel userMovieModel = (UserMovieModel) object;
+
+        Log.d("Click", String.valueOf(userMovieModel.moviesID));
+
 //        switch (v.getId()) {
 //            case R.id.item_info:
 //                Snackbar.make(v, "Release date2 " +dataModel.getType(), Snackbar.LENGTH_LONG)
@@ -45,7 +50,7 @@ public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnCli
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        MovieModel dataModel = getItem(position);
+        UserMovieModel dataModel = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 

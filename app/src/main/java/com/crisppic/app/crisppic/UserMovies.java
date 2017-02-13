@@ -8,5 +8,4 @@ public class UserMovies {
     public String type;
     public Boolean view;
     public Date date;
-
 }

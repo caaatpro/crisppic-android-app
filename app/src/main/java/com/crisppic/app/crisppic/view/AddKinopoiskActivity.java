@@ -58,7 +58,6 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
 
         switch (v.getId()) {
             case R.id.add:
-                Log.d("Profile", id);
                 if (TextUtils.isEmpty(id)) {
                     MovieIdView.setError("ID не указан :(");
                     MovieIdView.requestFocus();
@@ -148,7 +147,6 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
         App.getApi().userAddMovieKinopoisk(id, date).enqueue(new Callback<Object>() {
                  @Override
                  public void onResponse(Call<Object> call, Response<Object> response) {
-                     Log.d("Profile", "onResponse");
                      if (response.isSuccessful()) {
                          Object req = response.body();
                          Log.d("Profile", String.valueOf(req));

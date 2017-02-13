@@ -11,20 +11,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.crisppic.app.crisppic.App;
 import com.crisppic.app.crisppic.R;
 import com.crisppic.app.crisppic.User;
-import com.crisppic.app.crisppic.UserMovies;
 import com.crisppic.app.crisppic.view.profile.ProfileFragment;
 import com.crisppic.app.crisppic.view.profile.ProfileViewsFragment;
 import com.crisppic.app.crisppic.view.profile.ProfileWantsFragment;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,22 +70,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         context = getApplicationContext();
 
-        App.getApi().profile().enqueue(new Callback<User>() {
+        App.getApi().user(App.username).enqueue(new Callback<User>() {
                          @Override
                          public void onResponse(Call<User> call, Response<User> response) {
                              if (response.isSuccessful()) {
-                                 Log.d("Profile", response.body().username);
-
                                  actionBar.setTitle(response.body().username);
                                  actionBar.setSubtitle(response.body().username);
-
-                                 TextView textView3 = (TextView) findViewById(R.id.textView3);
-                                 textView3.setText(response.body().username);
-
-                                 TextView textView4 = (TextView) findViewById(R.id.textView4);
-                                 textView4.setText(response.body().username);
-
-                                 setMovies();
                              } else {
                                  // error response, no access to resource?
                                  // 404 or NotAuth
@@ -106,34 +91,6 @@ public class ProfileActivity extends AppCompatActivity {
                          }
                      }
         );
-    }
-
-    private void setMovies() {
-        Call<List<UserMovies>> call = App.getApi().profileMovies();
-        call.enqueue(new Callback<List<UserMovies>>() {
-                         @Override
-                         public void onResponse(Call<List<UserMovies>> call, Response<List<UserMovies>> response) {
-                             if (response.isSuccessful()) {
-                                 List<UserMovies> userMovies = response.body();
-
-
-                             } else {
-                                 // error response, no access to resource?
-                                 // 404 or NotAuth
-                                 Intent intent = new Intent(context, LoginActivity.class);
-                                 startActivity(intent);
-                                 finish();
-                             }
-                         }
-
-                         @Override
-                         public void onFailure(Call<List<UserMovies>> call, Throwable t) {
-
-                         }
-                     }
-        );
-        TextView textView4 = (TextView) findViewById(R.id.textView4);
-        textView4.setText("2342");
     }
 
     @Override

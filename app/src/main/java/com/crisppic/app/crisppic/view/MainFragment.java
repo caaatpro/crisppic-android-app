@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.crisppic.app.crisppic.App;
+import com.crisppic.app.crisppic.Movie;
 import com.crisppic.app.crisppic.MovieAdapter;
 import com.crisppic.app.crisppic.MovieModel;
-import com.crisppic.app.crisppic.Movie;
 import com.crisppic.app.crisppic.R;
 
 import java.util.ArrayList;
@@ -46,7 +44,6 @@ public class MainFragment extends Fragment {
         App.getApi().movies().enqueue(new Callback<List<Movie>>() {
                          @Override
                          public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-                             Log.d("Profile", "onResponse");
                              if (response.isSuccessful()) {
                                  List<Movie> movies = response.body();
 
@@ -55,8 +52,6 @@ public class MainFragment extends Fragment {
                                  movieModel = new ArrayList<>();
 
                                  for (int i = 0; i < movies.size(); i++) {
-                                     Log.d("Profile", String.valueOf(movies.get(i).titles));
-
                                      String title = movies.get(i).titles.russian;
                                      if (movies.get(i).titles.original != "") {
                                          title += " (" + movies.get(i).titles.original + ") ";
@@ -79,7 +74,6 @@ public class MainFragment extends Fragment {
                                         Intent intent = new Intent(context, MovieActivity.class);
                                         intent.putExtra("sID", movie.getsID());
 
-                                        Log.d("Profile", String.valueOf(movie.getsID()));
                                         startActivity(intent);
                                      }
                                  });

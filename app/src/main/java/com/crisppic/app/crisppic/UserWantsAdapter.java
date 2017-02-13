@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnClickListener{
+public class UserWantsAdapter extends ArrayAdapter<UserMovieModel> implements View.OnClickListener{
 
     Context mContext;
 
@@ -21,7 +21,7 @@ public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnCli
         ImageView info;
     }
 
-    public MovieAdapter(ArrayList<MovieModel> data, Context context) {
+    public UserWantsAdapter(ArrayList<UserMovieModel> data, Context context) {
         super(context, R.layout.movie_item, data);
         this.mContext = context;
 
@@ -45,7 +45,7 @@ public class MovieAdapter extends ArrayAdapter<MovieModel> implements View.OnCli
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        MovieModel dataModel = getItem(position);
+        UserMovieModel dataModel = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
 

@@ -2,15 +2,13 @@ package com.crisppic.app.crisppic.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.crisppic.app.crisppic.App;
-import com.crisppic.app.crisppic.RestClient;
-import com.crisppic.app.crisppic.service.RestClientService;
+import com.crisppic.app.crisppic.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,13 +33,13 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
-            App.getApi().basicLogin(App.basic).enqueue(new Callback<Object >() {
+            App.getApi().basicLogin(App.basic).enqueue(new Callback<User>() {
                              @Override
-                             public void onResponse(Call<Object> call, Response<Object> response) {
+                             public void onResponse(Call<User> call, Response<User> response) {
                                  if (response.isSuccessful()) {
-                                     // user object available
-                                     Log.d("Error", response.body().toString());
-                                     Log.d("Error1", "0");
+                                     User user = response.body();
+
+                                     App.setUsername(user.username);
 
                                      Intent intent = new Intent(context, MainActivity.class);
                                      startActivity(intent);
@@ -58,7 +56,7 @@ public class SplashActivity extends AppCompatActivity {
                              }
 
                              @Override
-                             public void onFailure(Call<Object> call, Throwable t) {
+                             public void onFailure(Call<User> call, Throwable t) {
                                  // something went completely south (like no internet connection)
                                  Log.d("Error", t.getMessage());
 
