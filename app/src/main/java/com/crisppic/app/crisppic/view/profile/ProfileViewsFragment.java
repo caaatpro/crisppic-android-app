@@ -130,14 +130,14 @@ public class ProfileViewsFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         // below variable info contains clicked item info and it can be null; scroll down to see a fix for it
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        final UserMovieModel movie = movieModel.get(info.position);
+        final UserMovieModel movieView = movieModel.get(info.position);
         switch(item.getItemId()){
             case R.id.edit:
                 Log.d("Menu edit", String.valueOf(info.position));
                 return true;
             case R.id.remove:
                 App.getApi()
-                        .userDelWants(movie.getsID())
+                        .userDelWants(movieView.getsID())
                         .enqueue(new Callback<Object>() {
                                      @Override
                                      public void onResponse(Call<Object> call, Response<Object> response) {

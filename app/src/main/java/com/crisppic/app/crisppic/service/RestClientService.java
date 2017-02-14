@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClientService {
 
-    public static final String API_BASE_URL = "http://9a23f0be.ngrok.io";
+    public static final String API_BASE_URL = "http://ba1467be.ngrok.io";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -30,6 +30,8 @@ public class RestClientService {
                 @Override
                 public Response intercept(Interceptor.Chain chain) throws IOException {
                     Request original = chain.request();
+
+                    Log.d("Basic", App.basic);
 
                     Request.Builder requestBuilder = original.newBuilder()
                             .header("Authorization", App.basic)

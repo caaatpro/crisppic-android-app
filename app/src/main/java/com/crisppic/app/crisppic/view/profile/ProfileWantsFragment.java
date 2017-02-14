@@ -127,12 +127,13 @@ public class ProfileWantsFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         // below variable info contains clicked item info and it can be null; scroll down to see a fix for it
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        final UserMovieModel movie = movieModel.get(info.position);
+
+        final UserMovieModel movieWant = movieModel.get(info.position);
         switch(item.getItemId()){
-            case R.id.view:
+            case R.id.want_view:
 
                 App.getApi()
-                        .userAddViews(movie.getMoviesID())
+                        .userAddViews(movieWant.getMoviesID())
                         .enqueue(new Callback<Object>() {
                                     @Override
                                     public void onResponse(Call<Object> call, Response<Object> response) {
@@ -140,7 +141,7 @@ public class ProfileWantsFragment extends Fragment {
                                             Object res = response.body();
 
                                             App.getApi()
-                                                    .userDelWants(movie.getsID())
+                                                    .userDelWants(movieWant.getsID())
                                                     .enqueue(new Callback<Object>() {
                                                                  @Override
                                                                  public void onResponse(Call<Object> call, Response<Object> response) {
@@ -178,15 +179,14 @@ public class ProfileWantsFragment extends Fragment {
                                 }
                 );
                 return true;
-            case R.id.remove:
+            case R.id.want_remove:
                 App.getApi()
-                        .userDelWants(movie.getsID())
+                        .userDelWants(movieWant.getsID())
                         .enqueue(new Callback<Object>() {
                                      @Override
                                      public void onResponse(Call<Object> call, Response<Object> response) {
                                          if (response.isSuccessful()) {
                                              Object res = response.body();
-
 
                                          } else {
                                              // error response, no access to resource?
