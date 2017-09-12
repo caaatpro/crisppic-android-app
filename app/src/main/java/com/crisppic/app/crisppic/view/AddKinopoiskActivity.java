@@ -66,31 +66,33 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
                     toastText = "Добавляю в базу!";
                     Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
 
-                    App.getApi().addKinopoisk(id).enqueue(new Callback<MovieKinopoisk>() {
-                             @Override
-                             public void onResponse(Call<MovieKinopoisk> call, Response<MovieKinopoisk> response) {
-                                 Log.d("Profile", "onResponse");
-                                 if (response.isSuccessful()) {
-                                     MovieKinopoisk movie = response.body();
-                                     Log.d("Profile", String.valueOf(movie.titles));
+                    App.getApi()
+                            .addKinopoisk(id)
+                            .enqueue(new Callback<MovieKinopoisk>() {
+                                         @Override
+                                         public void onResponse(Call<MovieKinopoisk> call, Response<MovieKinopoisk> response) {
+                                             Log.d("Profile", "onResponse");
+                                             if (response.isSuccessful()) {
+                                                 MovieKinopoisk movie = response.body();
+                                                 Log.d("Profile", String.valueOf(movie.titles));
 
 
-                                     toastText = "Фильм добавлен в базу ˆˆ";
-                                     Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
-                                 } else {
-                                     // error response, no access to resource?
-                                     // 404 or NotAuth
-                                     Intent intent = new Intent(context, LoginActivity.class);
-                                     startActivity(intent);
-                                 }
-                             }
+                                                 toastText = "Фильм добавлен в базу ˆˆ";
+                                                 Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+                                             } else {
+                                                 // error response, no access to resource?
+                                                 // 404 or NotAuth
+                                                 Intent intent = new Intent(context, LoginActivity.class);
+                                                 startActivity(intent);
+                                             }
+                                         }
 
-                             @Override
-                             public void onFailure(Call<MovieKinopoisk> call, Throwable t) {
-                                 Log.d("Profile", String.valueOf(t));
-                            }
-                        }
-                    );
+                                         @Override
+                                         public void onFailure(Call<MovieKinopoisk> call, Throwable t) {
+                                             Log.d("Profile", String.valueOf(t));
+                                         }
+                                     }
+                            );
                 }
                 break;
             case R.id.watched:
@@ -115,14 +117,13 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
 
                                 Date date = null;
                                 DateFormat df = new SimpleDateFormat("d/MM/yyyy");
-                                try{
+                                try {
                                     date = df.parse(dateString);
-                                }
-                                catch ( Exception ex ){
+                                } catch (Exception ex) {
                                     System.out.println(ex);
                                 }
 
-                                addMovie(id, date);
+                                addMovie(id, date, true);
                             }
                         }, mYear, mMonth, mDay);
 
@@ -130,7 +131,7 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Your code
-                        addMovie(id, null);
+                        addMovie(id, null, true);
                     }
                 });
                 datePickerDialog.show();
@@ -138,35 +139,67 @@ public class AddKinopoiskActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.want:
                 toastText = "Добавляю в хочу!";
+                addMovie(id, null, false);
                 Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 
-    private void addMovie(String id, Date date) {
-        App.getApi().userAddMovieKinopoisk(id, date).enqueue(new Callback<Object>() {
-                 @Override
-                 public void onResponse(Call<Object> call, Response<Object> response) {
-                     if (response.isSuccessful()) {
-                         Object req = response.body();
-                         Log.d("Profile", String.valueOf(req));
+    private void addMovie(String id, Date date, Boolean view) {
+        if (view) {
+            App.getApi()
+                    .userViewKinopoisk(id, date)
+                    .enqueue(new Callback<Object>() {
+                                 @Override
+                                 public void onResponse(Call<Object> call, Response<Object> response) {
+                                     if (response.isSuccessful()) {
+                                         Object req = response.body();
+                                         Log.d("Profile", String.valueOf(req));
 
 
-                         toastText = "Фильм добавлен в базу ˆˆ";
-                         Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
-                     } else {
-                         // error response, no access to resource?
-                         // 404 or NotAuth
-                         Intent intent = new Intent(context, LoginActivity.class);
-                         startActivity(intent);
-                     }
-                 }
+                                         toastText = "Фильм добавлен в базу ˆˆ";
+                                         Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+                                     } else {
+                                         // error response, no access to resource?
+                                         // 404 or NotAuth
+                                         Intent intent = new Intent(context, LoginActivity.class);
+                                         startActivity(intent);
+                                     }
+                                 }
 
-                 @Override
-                 public void onFailure(Call<Object> call, Throwable t) {
-                     Log.d("Profile", String.valueOf(t));
-                 }
-             }
-        );
+                                 @Override
+                                 public void onFailure(Call<Object> call, Throwable t) {
+                                     Log.d("Profile", String.valueOf(t));
+                                 }
+                             }
+                    );
+        } else {
+            App.getApi()
+                    .userWantKinopoisk(id)
+                    .enqueue(new Callback<Object>() {
+                                 @Override
+                                 public void onResponse(Call<Object> call, Response<Object> response) {
+                                     if (response.isSuccessful()) {
+                                         Object req = response.body();
+                                         Log.d("Profile", String.valueOf(req));
+
+
+                                         toastText = "Фильм добавлен в базу ˆˆ";
+                                         Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+                                     } else {
+                                         // error response, no access to resource?
+                                         // 404 or NotAuth
+                                         Intent intent = new Intent(context, LoginActivity.class);
+                                         startActivity(intent);
+                                     }
+                                 }
+
+                                 @Override
+                                 public void onFailure(Call<Object> call, Throwable t) {
+                                     Log.d("Profile", String.valueOf(t));
+                                 }
+                             }
+                    );
+        }
     }
 }

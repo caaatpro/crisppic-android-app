@@ -25,8 +25,11 @@ public interface RestClient {
     @GET("user/{username}/wants")
     Call<List<UserMovie>> userGetWants(@Path("username") String username);
 
-    @PUT("user/movie/kinopoisk/{id}")
-    Call<Object> userAddMovieKinopoisk(@Path("id") String id, @Query("date") Date date);
+    @PUT("user/views/kinopoisk/{id}")
+    Call<Object> userViewKinopoisk(@Path("id") String id, @Query("date") Date date);
+
+    @PUT("user/wants/kinopoisk/{id}")
+    Call<Object> userWantKinopoisk(@Path("id") String id);
 
     @PUT("user/views/{sId}")
     Call<Object> userAddViews(@Path("sId") Integer sId);
