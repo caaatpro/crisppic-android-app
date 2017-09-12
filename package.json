@@ -1,0 +1,14 @@
+{
+  "name": "crisppic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "sync-to": "sudo gulp sync-to",
+    "sync-from": "sudo gulp sync-from"
+  },
+  "author": "",
+  "license": "ISC"
+}

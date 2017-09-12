@@ -7,3 +7,5 @@
 /build
 /captures
 .externalNativeBuild
+_documents
+node_modules
